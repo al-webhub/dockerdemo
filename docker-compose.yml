@@ -17,6 +17,7 @@ services:
        - ./docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
      networks:
        - app-network
+     tty: true
    nginx:
      image: nginx:alpine
      container_name: webserver
@@ -29,6 +30,7 @@ services:
        - ./docker/nginx/conf.d/:/etc/nginx/conf.d
      networks:
        - app-network
+     tty: true
    mysql:
       image: mysql:5.7
       container_name: database
@@ -46,12 +48,13 @@ services:
         - ./docker/mysql/conf/my.cnf:/etc/mysql/my.cnf
       networks:
         - app-network
+      tty: true
    phpmyadmin:
      image: phpmyadmin/phpmyadmin
      container_name: phpmyadmin
      environment:
-       PMA_HOST: database
-       PMA_PORT: 777
+       PMA_HOST: mysql
+       PMA_PORT: 3306
      ports:
        - 3000:80
      networks:
